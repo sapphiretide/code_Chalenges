@@ -107,7 +107,7 @@ public class NumSearch_v2{
         int orga = -1;
         int orgb = -1;
         for(int i = 0; i < numArr.length; i++){
-        	if(orgNumArr[i] == numArr[a]){
+        	if(orgNumArr[i] == numArr[a] && orga == -1){
         		orga = i;
         	}
         	else if(orgNumArr[i] == numArr[b]){
