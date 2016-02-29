@@ -52,18 +52,82 @@ public class NumSearch_v2{
 		}
 	}
 
-	public static void sort(int[] l){
+	public static void heapSort(int[] l){
 		buildHeap(l);
-		for(int q = l.length - 1; q > 0; q--){
-			l[q] = extractMax(l, q - 1);
+		for(int q = l.length - 1; q >= 0; q--){
+			l[q] = extractMax(l, q);
 		}
 	}
-	public static void main(String[] args) {
-		int[] l = {1,6,2,4,9,2,5,3};
-		sort(l);
-		for(int i = 0; i < l.length; i++){
-			System.out.println(l[i]);
+	public static int binarySearch( int s,int[] l, int p, int q){
+		int mid = (p + q) / 2;
+		if(s == l[mid]){
+			return mid;
 		}
+		else if(p == q){
+			return -1;
+		}
+		else if( s < l[mid] && mid != p){
+			return binarySearch(s, l, p, mid - 1);
+		}
+		else if (mid != q){
+			return binarySearch(s, l, mid + 1, q);
+		}
+		else{
+			return -1;
+		}
+	}
+
+	public static void NumSearch(int sum, String numlist){
+        // Split the input string int a array of strings that are single numbers to use Interger.parseInt()
+        String[] numberStrings = numlist.split(" ");
+        // Initialize an integer Array that is the same length as String array.
+        int[] numArr = new int[numberStrings.length]; 
+        int[] orgNumArr = new int[numberStrings.length];
+        
+        // first, sencond the indexes of the number that sum to sum
+        int a = -1;
+        int b = -1;
+        
+        //Parse each int that is held in the string Array.
+        for(int i = 0; i < numberStrings.length; i ++){
+            numArr[i] = Integer.parseInt(numberStrings[i]);
+            orgNumArr[i] = Integer.parseInt(numberStrings[i]);
+        }
+        heapSort(numArr);
+        for(int i = 0; i < numArr.length - 2; i++ ){
+        	a = i;
+        	int s = sum - numArr[i];
+        	b = binarySearch(s, numArr, a + 1 , numArr.length - 1);
+        	if(b != -1){
+        		break;
+        	}
+            
+        }
+        // Print Answer
+        int orga = -1;
+        int orgb = -1;
+        for(int i = 0; i < numArr.length; i++){
+        	if(orgNumArr[i] == numArr[a]){
+        		orga = i;
+        	}
+        	else if(orgNumArr[i] == numArr[b]){
+        		orgb = i;
+        	}
+        }
+        if(orgb < orga){	
+        	int temp = orga;
+        	orga = orgb;
+        	orgb = temp;
+        }
+        System.out.printf("Indexes: %d %d ", orga, orgb);
+    }
+
+
+
+	public static void main(String[] args) {
+		int sum = Integer.parseInt(args[0]);
+        String numbers = args[1];
+        NumSearch(sum, numbers);
 	}
 
 
