@@ -58,6 +58,13 @@ public class NumSearch_v2{
 			l[q] = extractMax(l, q);
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 	public static int binarySearch( int s,int[] l, int p, int q){
 		int mid = (p + q) / 2;
 		if(s == l[mid]){
@@ -77,6 +84,12 @@ public class NumSearch_v2{
 		}
 	}
 
+	
+	
+	
+	
+	
+	
 	public static void NumSearch(int sum, String numlist){
         // Split the input string int a array of strings that are single numbers to use Interger.parseInt()
         String[] numberStrings = numlist.split(" ");
